@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Search Lost and Found Items</h2>
+
+<form method="get">
+    <div class="form-group">
+
+    </div>
+  {{ form.as_p }}
+  <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if results %}
+  <h3>Search Results:</h3>
+  <ul>
+    {% for item in results %}
+      <li>
+        <strong>{{ item.title }}</strong><br>
+        Category: {{ item.category }}<br>
+        Location: {{ item.location }}<br>
+        {% if item.date_lost %}
+          Lost On: {{ item.date_lost }}
+        {% elif item.date_found %}
+          Found On: {{ item.date_found }}
+        {% endif %}
+        <br>Contact: {{ item.contact_info }}
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+{% elif request.GET %}
+  <p>No items found matching your search.</p>
+{% endif %}
+
+{% endblock %}

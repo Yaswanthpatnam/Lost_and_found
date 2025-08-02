@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <p>choose one of them</p>
+    <a href="{% url "lost_view" %}"><button>Lost</button></a>
+    <a href="{% url "found_view" %}"><button>Found</button></a>
+    <a href="{% url "lost_search" %}"><button >Search</button></a>
+{% endblock content %}

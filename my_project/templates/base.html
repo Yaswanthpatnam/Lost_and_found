@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+         {% block title %}
+         Lost & Found
+        {% endblock title %}
+    </title>
+</head>
+<body>
+    <header>
+        <h1>Lost & Found Portal</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/users/login/">Login</a>
+            <a href="/users/register/">Register</a>
+        </nav>
+    </header>
+    
+</body>
+
+    <main>
+        {% block content %}
+        
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Lost & Found</p>
+    </footer>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Lost
+{% endblock title %}
+
+{% block content %}
+<h1>Report lost item</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form.category.label_tag }}
+        {{ form.category }}
+    </div>
+
+    <div class="form-group">
+        {{ form.title.label_tag }}
+        {{ form.title }}
+    </div>
+
+
+    <!-- Suggestions Box -->
+    <div class="suggestions-box" style="display:none; margin-bottom:10px;"></div>
+
+    {{ form.description.label_tag }}
+    {{ form.description }}
+
+    {{ form.location.label_tag }}
+    {{ form.location }}
+
+    {{ form.contact_info.label_tag }}
+    {{ form.contact_info }}
+
+    {{ form.image.label_tag }}
+    {{ form.image }}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    window.categoryMapData = {{ category_map_json|safe }};
+</script>
+<script src="{% static 'js/category_suggestions.js' %}"></script>
+{% endblock content %}

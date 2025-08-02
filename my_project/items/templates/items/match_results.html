@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>🔍 Potential Matches for Your Lost Item</h2>
+
+    {% if matched_items %}
+        <p class="text-muted">Here are some items that match your lost item description and category:</p>
+        <div class="row">
+            {% for item in matched_items %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" class="card-img-top" alt="Found Item Image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text"><strong>Category:</strong> {{ item.category }}</p>
+                            <p class="card-text"><strong>Description:</strong> {{ item.description }}</p>
+                            {% if item.contact_info %}
+                                <p class="card-text"><strong>Contact:</strong> {{ item.contact_info }}</p>
+                            {% endif %}
+                            <p class="card-text"><small class="text-muted">Found on {{ item.date_time|date:"M d, Y - H:i A" }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-danger">No matching items found at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}
