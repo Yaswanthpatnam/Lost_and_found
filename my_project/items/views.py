@@ -27,11 +27,11 @@ def lost_search(request):
             found_items = found_items.filter(date_time__gte=date_time)        
             
         results = list(lost_items) + list(found_items)  
-        
+    category_map_json = mark_safe(json.dumps(CATEGORY_MAP))    
     return render(request, 'items/lost_search.html',{
         'form':form,
         'results':results,
-        'category_map': CATEGORY_MAP
+        'category_map_json': category_map_json,
     })      
 
 def lost_view(request):
@@ -54,7 +54,7 @@ def found_view(request):
         form = FoundItemForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('found_view')  
+            return redirect('home')  
     else:
         form = FoundItemForm() 
     category_map_json = mark_safe(json.dumps(CATEGORY_MAP))   

@@ -1,13 +1,44 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
 
 <h2>Search Lost and Found Items</h2>
 
 <form method="get">
-    <div class="form-group">
 
-    </div>
-  {{ form.as_p }}
+    <!-- Category Dropdown -->
+    {{ form.category.label_tag }}
+    {{ form.category }}
+
+  <br> <br>
+
+
+  <div class="form-group">
+    <!-- Thing Name Input + Suggestions Box -->
+    {{ form.thing_name.label_tag }}
+    {{ form.thing_name }}
+    <div class="suggestions-box" style="
+        border: 1px solid #ccc;
+        display: none;
+        padding: 5px;
+        max-height: 150px;
+        overflow-y: auto;
+    "></div>
+
+
+    <!-- Location -->
+    {{ form.location.label_tag }}
+    {{ form.location }}
+
+    <br><br>
+
+    <!-- Date -->
+    {{ form.date_time.label_tag }}
+    {{ form.date_time }}
+  </div>
+
+  <br>
   <button type="submit">Search</button>
 </form>
 
@@ -34,5 +65,13 @@
 {% elif request.GET %}
   <p>No items found matching your search.</p>
 {% endif %}
+
+<!-- JS for Dynamic Suggestions -->
+<script src="{% static 'js/category_Suggestions.js' %}"></script>
+<script>
+  // Expose category map globally for JS
+  window.categoryMapData = {{ category_map_json|safe }};
+  window.initializeCategorySuggestions(window.categoryMapData);
+</script>
 
 {% endblock %}
