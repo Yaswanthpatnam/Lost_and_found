@@ -1,10 +1,5 @@
 from django import forms
-from .models import LostItem, FoundItem,CATEGORY_CHOICES,LOCATION_CHOICES
-
-class LostItemForm(forms.ModelForm):
-    class Meta:
-        model = LostItem
-        fields = ['category','title','description','location','contact_info', 'image']
+from .models import FoundItem,CATEGORY_CHOICES,LOCATION_CHOICES
 
         
 class FoundItemForm(forms.ModelForm):

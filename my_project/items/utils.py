@@ -6,12 +6,5 @@ CATEGORY_MAP = {
     'Personal Items': ['Bike keys', 'Room keys','wallet']
 }
 
-def matches_category_keywords(category, description):
-    description = description.lower().strip()
-    keywords = CATEGORY_MAP.get(category,[])
-    
-    for word in keywords:
-        if word.lower() in description:
-            return True
-    return False
+
     

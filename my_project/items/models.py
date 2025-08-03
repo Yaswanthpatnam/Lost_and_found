@@ -42,17 +42,7 @@ LOCATION_CHOICES = [
 
 ]
 
-class LostItem(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField()    
-    image = models.ImageField(upload_to='lost_images/', blank=True, null=True)
-    location = models.CharField(max_length=100, choices=LOCATION_CHOICES)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES,default='Personal Items')
-    contact_info = models.CharField(max_length=100)
-    date_lost = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return f"Lost: {self.title}"
-    
+
     
 class FoundItem(models.Model):
     title = models.CharField(max_length=100)
