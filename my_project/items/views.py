@@ -30,7 +30,7 @@ def lost_search(request):
                 results = results.filter(title__icontains=thing_name)
 
             if date_time:
-                results = results.filter(date_time__date=date_time)       
+                results = results.filter(date_time__date=date_time.date())       
         
         else:
             results = []    

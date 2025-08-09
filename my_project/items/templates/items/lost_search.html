@@ -1,71 +1,71 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Lost{% endblock title %}Lost
+
 {% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm border rounded">
+    <div class="card-body">
+      <h2 class="text-center mb-4">Search Lost and Found Items</h2>
 
-<h2>Search Lost and Found Items</h2>
+      <form method="get" autocomplete="off">
+        <div class="mb-3">
+            <!-- Category Dropdown -->
+            {{ form.category.label_tag }}
+            {{ form.category }}
+        </div>
 
-<form method="get" autocomplete="off">
+        <div class="mb-3">
+          <!-- Thing Name Input + Suggestions Box -->
+          {{ form.thing_name.label_tag }}
+          {{ form.thing_name }}
+          <div class="suggestions-box border rounded p-2 mt-2" style="
+              display: none;
+              max-height: 150px;
+              overflow-y: auto;
+          "></div>
+        
+          <div class="mb-3">
+            <!-- Location -->
+            {{ form.location.label_tag }}
+            {{ form.location }}
+          </div>
+          
+        <div class="mb-3">
+          <!-- Date -->
+          {{ form.date_time.label_tag }}
+          {{ form.date_time }}
+        </div>
 
-    <!-- Category Dropdown -->
-    {{ form.category.label_tag }}
-    {{ form.category }}
+        <button type="submit" class="btn btn-success w-100">Search</button>
+      </form>
 
-  <br> <br>
+      <hr>
 
-
-  <div class="form-group">
-    <!-- Thing Name Input + Suggestions Box -->
-    {{ form.thing_name.label_tag }}
-    {{ form.thing_name }}
-    <div class="suggestions-box" style="
-        border: 1px solid #ccc;
-        display: none;
-        padding: 5px;
-        max-height: 150px;
-        overflow-y: auto;
-    "></div>
-
-
-    <!-- Location -->
-    {{ form.location.label_tag }}
-    {{ form.location }}
-
-    <br><br>
-
-    <!-- Date -->
-    {{ form.date_time.label_tag }}
-    {{ form.date_time }}
+      {% if results %}
+        <h3 class="text-center">Search Results:</h3>
+          <ul class="list-group">
+            {% for item in results %}
+              <li class="list-group-item">
+                <strong>{{ item.title }}</strong><br>
+                Category: {{ item.category }}<br>
+                Location: {{ item.location }}<br>
+                {% if item.date_lost %}
+                  Lost On: {{ item.date_lost }}
+                {% elif item.date_found %}
+                  Found On: {{ item.date_found }}
+                {% endif %}
+                <br>Contact: {{ item.contact_info }}        
+              </li>
+            {% endfor %}
+          </ul>
+      {% elif request.GET %}
+        <p class="text-danger">No items found matching your search.</p>
+      {% endif %}
+    </div>
   </div>
-
-  <br>
-  <button type="submit">Search</button>
-</form>
-
-<hr>
-
-{% if results %}
-  <h3>Search Results:</h3>
-  <ul>
-    {% for item in results %}
-      <li>
-        <strong>{{ item.title }}</strong><br>
-        Category: {{ item.category }}<br>
-        Location: {{ item.location }}<br>
-        {% if item.date_lost %}
-          Lost On: {{ item.date_lost }}
-        {% elif item.date_found %}
-          Found On: {{ item.date_found }}
-        {% endif %}
-        <br>Contact: {{ item.contact_info }}
-        <hr>
-      </li>
-    {% endfor %}
-  </ul>
-{% elif request.GET %}
-  <p>No items found matching your search.</p>
-{% endif %}
-
+</div>
 <!-- JS for Dynamic Suggestions -->
 <script src="{% static 'js/category_Suggestions.js' %}"></script>
 <script>
