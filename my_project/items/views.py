@@ -4,6 +4,7 @@ from .forms import  FoundItemForm,LostSearchForm
 from .utils import CATEGORY_MAP
 import json
 from django.utils.safestring import mark_safe
+from datetime import datetime
 # Create your views here.
 def lost_search(request):
     form = LostSearchForm(request.GET or None)
@@ -13,7 +14,8 @@ def lost_search(request):
         category = form.cleaned_data['category']
         location = form.cleaned_data['location']
         thing_name = form.cleaned_data.get('thing_name')
-        date_time = form.cleaned_data.get('date_time')
+        search_date = form.cleaned_data.get('date')
+        search_time = form.cleaned_data.get('time')
 
 
         if thing_name :
@@ -29,9 +31,17 @@ def lost_search(request):
             if thing_name:
                 results = results.filter(title__icontains=thing_name)
 
-            if date_time:
-                results = results.filter(date_time__date=date_time.date())       
-        
+            # Date filter
+            
+            if search_date and not search_time:
+                results = results.filter(date_found__date=search_date)
+                
+            if search_time and not search_date:
+                results = results.filter(date_found__time=search_time)
+                
+            if search_date and search_time:
+                combined_datetime = datetime.combine(search_date, search_time)
+                results = results.filter(date_found=combined_datetime)        
         else:
             results = []    
     category_map_json = mark_safe(json.dumps(CATEGORY_MAP))    

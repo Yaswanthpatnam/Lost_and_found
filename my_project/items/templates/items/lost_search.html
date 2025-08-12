@@ -33,9 +33,13 @@
           </div>
           
         <div class="mb-3">
-          <!-- Date -->
-          {{ form.date_time.label_tag }}
-          {{ form.date_time }}
+          <!-- Date and Time-->
+          {{ form.date.label_tag }}
+          {{ form.date }}
+
+          {{ form.time.label_tag }}
+          {{ form.time }}
+
         </div>
 
         <button type="submit" class="btn btn-success w-100">Search</button>

@@ -20,9 +20,13 @@ class LostSearchForm(forms.Form):
         required=False, 
         widget=forms.TextInput(attrs={'class':'form-control'})
         )
-    date_time = forms.DateTimeField(
+    date = forms.DateField(
+        required=True,
+        widget=forms.DateInput(attrs={'type':'date','class':'form-control'})
+    )
+    time = forms.TimeField(
         required=False,
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local','class':'form-control'})
+        widget=forms.TimeInput(attrs={'type': 'time','class':'form-control'})
         )
         
         

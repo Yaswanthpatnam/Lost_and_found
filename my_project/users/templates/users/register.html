@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container">
-        <h2>register</h2>
+        <h2>Register</h2>
     <form method="POST" enctype="multipart/form-data" autocomplete="off" class="p-4 border rounded bg-light">
         {% csrf_token %}
         {{ form.as_p }}
